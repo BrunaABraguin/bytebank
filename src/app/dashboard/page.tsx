@@ -89,11 +89,11 @@ const Dashboard: React.FC = () => {
             <div className="flex justify-between">
               Depósito <span>23/10</span>
             </div>
-            <div className="text-green-500">R$ 120,00</div>
+            <div className="text-green">R$ 120,00</div>
             <div className="flex justify-between">
               Depósito <span>20/10</span>
             </div>
-            <div className="text-green-500">R$ 40,00</div>
+            <div className="text-green">R$ 40,00</div>
           </div>
           <div className="pt-2">
             <div className="font-semibold">Julho</div>
@@ -112,7 +112,7 @@ const Dashboard: React.FC = () => {
             <div className="flex justify-between">
               Depósito <span>19/07</span>
             </div>
-            <div className="text-green-500">R$ 60,00</div>
+            <div className="text-green500">R$ 60,00</div>
           </div>
         </div>
       </aside>

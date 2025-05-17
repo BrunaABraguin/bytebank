@@ -16,7 +16,11 @@ export const LoginButtons: React.FC<LoginButtonsProps> = ({
         <span className="hidden lg:block">Abrir minha conta</span>
         <span className="block lg:hidden">Abrir conta</span>
       </Button>
-      <Button variant="outline" color={color}>
+      <Button
+        variant="outline"
+        color={color}
+        onClick={() => window.location.assign("/dashboard")}
+      >
         Já tenho conta
       </Button>
     </div>

@@ -3,7 +3,7 @@ import { LoginButtons } from "../LoginButtons";
 
 export const HomeGreetings: React.FC = () => {
   return (
-    <main className="flex flex-col xl:flex-row flex-wrap justify-between items-center lg:px-28 px-5 py-10 bg-gradient-to-b from-green-dark to-white">
+    <main className="flex flex-col xl:flex-row flex-wrap justify-between items-center xl:px-28 px-5 py-10">
       <div className="flex-1 mb-8 xl:mb-0 line-clamp-3 max-sm:line-clamp-4">
         <p className="font-semibold text-black md:text-3xl text-2xl text-left max-lg:text-center max-w-lg">
           Experimente mais liberdade no controle da sua vida financeira. Crie
@@ -22,7 +22,10 @@ export const HomeGreetings: React.FC = () => {
           }}
         />
       </div>
-      <LoginButtons className="hidden max-sm:flex flex-wrap gap-4" color="black"/>
+      <LoginButtons
+        className="hidden max-sm:flex flex-wrap gap-4"
+        color="black"
+      />
     </main>
   );
 };
