@@ -1,28 +1,35 @@
 import React from "react";
 
+type ButtonColor = "green" | "black";
 type ButtonVariant = "primary" | "outline";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: ButtonVariant;
+    color?: ButtonColor;
     children: React.ReactNode;
 }
 
-const variantClasses: Record<ButtonVariant, string> = {
-    primary:
-        "bg-green text-white px-4 py-2 rounded-lg hover:bg-green-600 cursor-pointer",
-    outline:
-        "border border-green text-green-500 px-4 py-2 rounded-lg hover:bg-green-100 cursor-pointer",
+const variantClasses: Record<ButtonVariant, Record<ButtonColor, string>> = {
+    primary: {
+        green: "bg-green text-white px-4 py-2 rounded-lg hover:bg-green-600 cursor-pointer",
+        black: "bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 cursor-pointer",
+    },
+    outline: {
+        green: "border border-green text-green-500 px-4 py-2 rounded-lg hover:bg-green-100 cursor-pointer",
+        black: "border border-black text-black px-4 py-2 rounded-lg hover:bg-gray-100 cursor-pointer",
+    },
 };
 
 export const Button: React.FC<ButtonProps> = ({
     variant = "primary",
+    color = "green",
     children,
     className = "",
     ...props
 }) => (
     <button
         type="button"
-        className={`${variantClasses[variant]} ${className}`}
+        className={`${variantClasses[variant][color]} ${className}`}
         {...props}
     >
         {children}

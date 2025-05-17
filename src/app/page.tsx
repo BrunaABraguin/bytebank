@@ -9,29 +9,13 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Header from "./components/Header";
+import { HomeGreetings } from "./components/HomeGreetings";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex flex-wrap justify-between items-center px-6 py-10 bg-gradient-to-b from-[#003c4d] to-white px-28">
-        <div className="flex-1 text-[#001f29] text-2xl font-bold mb-8">
-          <p>
-            Experimente mais liberdade no controle da sua vida financeira.{" "}
-            <br />
-            Crie sua conta com a gente!
-          </p>
-        </div>
-        <div className="flex-1 text-center">
-          <Image
-            src="/illustration.svg"
-            alt="Gráfico e pessoa"
-            width={400}
-            height={300}
-            className="mx-auto"
-          />
-        </div>
-      </main>
+      <HomeGreetings />
 
       <section className="text-center py-10">
         <h2 className="text-xl font-bold mb-6">Vantagens do nosso banco:</h2>
@@ -82,10 +66,7 @@ export default function Home() {
               desc: "Proteção para seus dispositivos com mensalidade simbólica.",
             },
           ].map((benefit) => (
-            <div
-              key={benefit.title}
-              className="text-gray-600 text-center"
-            >
+            <div key={benefit.title} className="text-gray-600 text-center">
               {benefit.icon}
               <h3 className="text-green-600 mt-2 mb-1 font-semibold">
                 {benefit.title}
@@ -140,4 +121,4 @@ export default function Home() {
       </footer>
     </>
   );
-}
+};
