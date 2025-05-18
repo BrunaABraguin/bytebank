@@ -7,7 +7,7 @@ import { NAV_LINKS } from "@/constants";
 
 const HeaderHome: React.FC = () => (
   <header className="bg-black text-white p-5 flex flex-wrap justify-between items-center xl:px-28">
-    <HamburgerMenu />
+    <HamburgerMenu links={NAV_LINKS} />
     <div className="flex flex-wrap items-center sm:gap-10">
       <Link href="/">
         <Image

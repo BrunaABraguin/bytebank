@@ -1,31 +1,17 @@
 import React from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import BalanceCard from "./components/BalanceCard";
 
 const Dashboard: React.FC = () => {
   return (
     <div className="bg-green-light">
       <Header />
 
-      <div className="grid grid-cols-1 md:grid-cols-4 min-h-screen xl:px-28">
+      <div className="grid grid-cols-1 lg:grid-cols-4 min-h-screen xl:px-28">
         <Sidebar />
-        {/* Main content */}
-        <main className="md:col-span-2 p-6 space-y-6">
-          <header className="flex justify-between items-center bg-green-dark text-white px-6 py-4 rounded">
-            <h1 className="text-lg font-medium">Olá, Joana! :)</h1>
-            <div className="text-sm">Joana da Silva Oliveira</div>
-          </header>
-
-          {/* Balance Card */}
-          <section className="bg-green-dark text-white p-6 rounded space-y-4">
-            <div className="text-sm">Quinta-feira, 08/09/2024</div>
-            <div className="flex justify-between items-center">
-              <span className="font-semibold">Saldo</span>
-              <span>👁️</span>
-            </div>
-            <div className="text-xs">Conta Corrente</div>
-            <div className="text-2xl font-bold">R$ 2.500,00</div>
-          </section>
+        <main className="md:col-span-2 px-6 space-y-6">
+          <BalanceCard />
 
           {/* New Transaction */}
           <section className="bg-[#dcdedd] p-6 rounded space-y-4">

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Button from '../Button';
 
 const NotFoundSection: React.FC = () => (
-  <section className="bg-gradient-to-b from-green-dark to-white text-center items-center flex flex-col justify-center min-h-screen">
+  <section className="bg-gradient-to-b from-green-dark to-white text-center items-center flex flex-col justify-center min-h-screen pt-6">
     <h1 className="text-2xl font-bold text-black mb-4">
       Ops! Não encontramos a página...
     </h1>
