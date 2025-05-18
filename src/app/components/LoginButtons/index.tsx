@@ -12,7 +12,11 @@ export const LoginButtons: React.FC<LoginButtonsProps> = ({
 }) => {
   return (
     <div className={`flex flex-wrap gap-4 ${className}`}>
-      <Button variant="primary" color={color}>
+      <Button
+        variant="primary"
+        color={color}
+        onClick={() => window.location.assign("/dashboard")}
+      >
         <span className="hidden lg:block">Abrir minha conta</span>
         <span className="block lg:hidden">Abrir conta</span>
       </Button>

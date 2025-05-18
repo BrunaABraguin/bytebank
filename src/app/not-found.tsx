@@ -1,13 +1,13 @@
 "use client";
 import Footer from "./components/Footer";
-import Header from "./components/Header";
+import HeaderHome from "./components/HeaderHome";
 
 import NotFoundSection from "./components/NotFoundSection";
 
 export default function NotFound() {
   return (
     <div>
-      <Header />
+      <HeaderHome />
       <NotFoundSection />
       <Footer />
     </div>

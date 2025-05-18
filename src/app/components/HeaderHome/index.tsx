@@ -5,7 +5,7 @@ import { LoginButtons } from "../LoginButtons";
 import { HamburgerMenu } from "../HamburguerMenu";
 import { NAV_LINKS } from "@/constants";
 
-const Header: React.FC = () => (
+const HeaderHome: React.FC = () => (
   <header className="bg-black text-white p-5 flex flex-wrap justify-between items-center xl:px-28">
     <HamburgerMenu />
     <div className="flex flex-wrap items-center sm:gap-10">
@@ -41,4 +41,4 @@ const Header: React.FC = () => (
   </header>
 );
 
-export default Header;
+export default HeaderHome;

@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "./components/Header";
+import HeaderHome from "./components/HeaderHome";
 import { HomeGreetings } from "./components/HomeGreetings";
 import BenefitsSection from "./components/BenefitsSection";
 import Footer from "./components/Footer";
@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 export default function Home() {
   return (
     <div>
-      <Header />
+      <HeaderHome />
       <div className="bg-gradient-to-b from-green-dark to-white">
         <HomeGreetings />
         <BenefitsSection />
