@@ -20,15 +20,17 @@ Este projeto é o resultado do Tech Challenge da Fase 01, consistindo no desenvo
 
 ## 📁 Estrutura do Projeto
 
+```
 src/
-├── app/
-├──components/ # Componentes reutilizáveis
-├──dashboard/ # Página e rota que mostra os dados
-├──page.tsx # Página inicial com login
-├──not-found.tsx # Página Not Found caso não haja rota
-├── constants
-├── data/ # Mock de dados (simulado)
-├── types/ # Funções auxiliares
+├── app/                  # Configuração principal do Next.js
+├── components/           # Componentes reutilizáveis
+├── dashboard/            # Página e rota do dashboard financeiro
+├── page.tsx              # Página inicial (login)
+├── not-found.tsx         # Página para rotas não encontradas
+├── constants/            # Constantes globais do projeto
+├── data/                 # Mock de dados (simulação)
+├── types/                # Tipos TypeScript e funções auxiliares
+```
 
 ## 🧪 Como Executar Localmente
 
