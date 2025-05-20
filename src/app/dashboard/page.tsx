@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar";
 import BalanceCard from "./components/BalanceCard";
 import NewTransactionCard from "./components/NewTransactionCard";
 import Statement from "./components/Statement";
-import { transactions } from "@/mocks";
+import { transactions } from "@/data";
 
 const Dashboard: React.FC = () => {
   return (
