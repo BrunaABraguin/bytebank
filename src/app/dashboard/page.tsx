@@ -2,101 +2,20 @@ import React from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import BalanceCard from "./components/BalanceCard";
+import NewTransactionCard from "./components/NewTransactionCard";
+import Statement from "./components/Statement";
 
 const Dashboard: React.FC = () => {
   return (
     <div className="bg-green-light">
       <Header />
-
       <div className="grid grid-cols-1 lg:grid-cols-4 min-h-screen xl:px-28">
         <Sidebar />
         <main className="md:col-span-2 px-6 space-y-6">
-          <BalanceCard />
-
-          {/* New Transaction */}
-          <section className="bg-[#dcdedd] p-6 rounded space-y-4">
-            <h2 className="font-semibold text-green-dark">Nova transação</h2>
-            <div className="space-y-2">
-              <select className="w-full border border-gray-300 rounded px-4 py-2">
-                <option>Selecione o tipo de transação</option>
-              </select>
-              <input
-                type="text"
-                placeholder="00,00"
-                className="w-full border border-gray-300 rounded px-4 py-2"
-              />
-              <button className="w-full bg-green-dark text-white font-semibold py-2 rounded">
-                Concluir transação
-              </button>
-            </div>
-          </section>
+          <BalanceCard balance={2500} />
+          <NewTransactionCard />
         </main>
-
-        {/* Statement */}
-        <aside className="md:col-span-1 p-6">
-          <h2 className="font-bold text-lg text-green-dark">Extrato</h2>
-          <div className="flex gap-2 my-4">
-            <button className="bg-green-dark text-white p-2 rounded-full">
-              ✏️
-            </button>
-            <button className="bg-green-dark text-white p-2 rounded-full">
-              🗑️
-            </button>
-          </div>
-          <div className="space-y-4 text-sm text-green-dark">
-            <div>
-              <div className="font-semibold">Setembro</div>
-              <div className="flex justify-between">
-                Transferência <span>04/09</span>
-              </div>
-              <div className="text-red-500">-R$ 36,00</div>
-            </div>
-            <div>
-              <div className="flex justify-between">
-                Transferência <span>02/09</span>
-              </div>
-              <div className="text-red-500">-R$ 56,00</div>
-            </div>
-            <div className="pt-2">
-              <div className="font-semibold">Agosto</div>
-              <div className="flex justify-between">
-                Transferência <span>30/10</span>
-              </div>
-              <div className="text-red-500">-R$ 50,00</div>
-              <div className="flex justify-between">
-                Transferência <span>27/10</span>
-              </div>
-              <div className="text-red-500">-R$ 86,00</div>
-              <div className="flex justify-between">
-                Depósito <span>23/10</span>
-              </div>
-              <div className="text-green">R$ 120,00</div>
-              <div className="flex justify-between">
-                Depósito <span>20/10</span>
-              </div>
-              <div className="text-green">R$ 40,00</div>
-            </div>
-            <div className="pt-2">
-              <div className="font-semibold">Julho</div>
-              <div className="flex justify-between">
-                Transferência <span>18/07</span>
-              </div>
-              <div className="text-red-500">-R$ 420,00</div>
-              <div className="flex justify-between">
-                Transferência <span>21/07</span>
-              </div>
-              <div className="text-red-500">-R$ 186,00</div>
-              <div className="flex justify-between">
-                Transferência <span>19/07</span>
-              </div>
-              <div className="text-red-500">-R$ 12,00</div>
-              <div className="flex justify-between">
-                Depósito <span>19/07</span>
-              </div>
-              <div className="text-green500">R$ 60,00</div>
-            </div>
-          </div>
-        </aside>
+        <Statement />
       </div>
     </div>
   );
