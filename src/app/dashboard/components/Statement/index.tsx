@@ -1,70 +1,35 @@
+import { Transaction } from "@/types";
 import React from "react";
 
-const Statement: React.FC = () => {
+interface StatementProps {
+  transactions: Transaction[];
+}
+
+const Statement: React.FC<StatementProps> = ({ transactions }) => {
   return (
-    <aside className="md:col-span-1 p-6">
-      <h2 className="font-bold text-lg text-green-dark">Extrato</h2>
-      <div className="flex gap-2 my-4">
-        <button className="bg-green-dark text-white p-2 rounded-full">
-          ✏️
-        </button>
-        <button className="bg-green-dark text-white p-2 rounded-full">
-          🗑️
-        </button>
-      </div>
-      <div className="space-y-4 text-sm text-green-dark">
-        <div>
-          <div className="font-semibold">Setembro</div>
-          <div className="flex justify-between">
-            Transferência <span>04/09</span>
+    <aside className="bg-white rounded-lg max-w-sm p-8 md:col-span-1">
+      <h2 className="text-xl font-bold mb-4">Extrato</h2>
+
+      {transactions.map((tx) => (
+        <div key={tx.id} className="mb-4 border-b border-green pb-2">
+          <div className="flex justify-between text-sm text-green font-semibold">
+            <span>{tx.month}</span>
+            <span className="text-gray-400">
+              {new Date(tx.date).toLocaleDateString("pt-BR")}
+            </span>
           </div>
-          <div className="text-red-500">-R$ 36,00</div>
+
+          <div className="text-black font-medium">{tx.type}</div>
+
+          <div
+            className={`font-bold ${
+              tx.amount < 0 ? "text-red-600" : "text-black"
+            }`}
+          >
+            {tx.amount < 0 ? `-R$ ${Math.abs(tx.amount)}` : `R$ ${tx.amount}`}
+          </div>
         </div>
-        <div>
-          <div className="flex justify-between">
-            Transferência <span>02/09</span>
-          </div>
-          <div className="text-red-500">-R$ 56,00</div>
-        </div>
-        <div className="pt-2">
-          <div className="font-semibold">Agosto</div>
-          <div className="flex justify-between">
-            Transferência <span>30/10</span>
-          </div>
-          <div className="text-red-500">-R$ 50,00</div>
-          <div className="flex justify-between">
-            Transferência <span>27/10</span>
-          </div>
-          <div className="text-red-500">-R$ 86,00</div>
-          <div className="flex justify-between">
-            Depósito <span>23/10</span>
-          </div>
-          <div className="text-green">R$ 120,00</div>
-          <div className="flex justify-between">
-            Depósito <span>20/10</span>
-          </div>
-          <div className="text-green">R$ 40,00</div>
-        </div>
-        <div className="pt-2">
-          <div className="font-semibold">Julho</div>
-          <div className="flex justify-between">
-            Transferência <span>18/07</span>
-          </div>
-          <div className="text-red-500">-R$ 420,00</div>
-          <div className="flex justify-between">
-            Transferência <span>21/07</span>
-          </div>
-          <div className="text-red-500">-R$ 186,00</div>
-          <div className="flex justify-between">
-            Transferência <span>19/07</span>
-          </div>
-          <div className="text-red-500">-R$ 12,00</div>
-          <div className="flex justify-between">
-            Depósito <span>19/07</span>
-          </div>
-          <div className="text-green500">R$ 60,00</div>
-        </div>
-      </div>
+      ))}
     </aside>
   );
 };

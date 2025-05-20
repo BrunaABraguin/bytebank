@@ -1,10 +1,10 @@
 "use client";
 
-import { Options } from "@/app/types";
+import { Option } from "@/types";
 import React, { useState } from "react";
 
 interface SelectProps {
-  options: Options;
+  options: Option[];
 }
 
 const Select: React.FC<SelectProps> = ({ options }) => {

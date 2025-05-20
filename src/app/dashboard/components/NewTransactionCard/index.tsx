@@ -1,6 +1,6 @@
 import Button from "@/app/components/Button";
 import Select from "@/app/components/Select";
-import { transactionOptions } from "@/app/constants";
+import { transactionOptions } from "@/constants";
 import React from "react";
 
 const NewTransactionCard: React.FC = () => {
