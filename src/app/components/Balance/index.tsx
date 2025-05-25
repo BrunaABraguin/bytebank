@@ -25,6 +25,7 @@ const Balance: React.FC<BalanceProps> = ({ balance }) => {
             className={`${
               viewBalance ? "hidden" : "block"
             } transition-all duration-300`}
+            style={{ width: "auto", height: "auto" }}
           />
           <Image
             src="/eye-orange.svg"
@@ -34,6 +35,7 @@ const Balance: React.FC<BalanceProps> = ({ balance }) => {
             className={`${
               viewBalance ? "block" : "hidden"
             } transition-all duration-300`}
+            style={{ width: "auto", height: "auto" }}
           />
         </button>
       </div>

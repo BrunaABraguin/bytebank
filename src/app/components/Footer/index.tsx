@@ -7,21 +7,21 @@ const contacts = [
   "ouvidoria@bytebank.com.br",
 ];
 const socialLinks = [
-    {
-        href: "https://instagram.com",
-        src: "/instagram.svg",
-        alt: "Instagram",
-    },
-    {
-        href: "https://wa.me/",
-        src: "/whatsapp.svg",
-        alt: "WhatsApp",
-    },
-    {
-        href: "https://youtube.com",
-        src: "/youtube.svg",
-        alt: "YouTube",
-    },
+  {
+    href: "https://instagram.com",
+    src: "/instagram.svg",
+    alt: "Instagram",
+  },
+  {
+    href: "https://wa.me/",
+    src: "/whatsapp.svg",
+    alt: "WhatsApp",
+  },
+  {
+    href: "https://youtube.com",
+    src: "/youtube.svg",
+    alt: "YouTube",
+  },
 ];
 
 const Footer: React.FC = () => (
@@ -45,11 +45,18 @@ const Footer: React.FC = () => (
         alt="Logo Bytebank"
         width={145}
         height={35}
+        style={{ width: "auto", height: "auto" }}
       />
       <div className="flex gap-3 mt-2">
         {socialLinks.map(({ href, src, alt }) => (
           <a key={alt} href={href} target="_blank" rel="noopener noreferrer">
-            <Image src={src} alt={alt} width={30} height={30} />
+            <Image
+              src={src}
+              alt={alt}
+              width={30}
+              height={30}
+              style={{ width: "auto", height: "auto" }}
+            />
           </a>
         ))}
       </div>

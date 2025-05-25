@@ -18,6 +18,8 @@ export const HomeGreetings: React.FC = () => {
           height={412}
           className="xl:w-[660px] md:w-[600px] sm:w-[312px] w-full h-auto mx-auto"
           style={{
+            width: "auto",
+            height: "auto",
             maxWidth: "100%",
           }}
         />

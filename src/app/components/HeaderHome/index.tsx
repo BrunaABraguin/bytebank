@@ -15,7 +15,8 @@ const HeaderHome: React.FC = () => (
           alt="Bytebank"
           width={150}
           height={32}
-          className="hidden lg:block max-sm:block"
+          className="block sm:hidden h-6 w-auto"
+          priority
         />
         <Image
           src="/favicon.svg"
@@ -23,6 +24,7 @@ const HeaderHome: React.FC = () => (
           width={32}
           height={32}
           className="block lg:hidden max-sm:hidden"
+          style={{ width: "auto", height: "auto" }}
         />
       </Link>
       <nav className="flex gap-4 text-green font-semibold text-lg">

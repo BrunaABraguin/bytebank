@@ -36,9 +36,10 @@ export default function BenefitsSection() {
             <Image
               src={benefit.icon}
               alt={benefit.title}
-              className="mx-auto"
               width={73}
               height={56}
+              className="mx-auto"
+              style={{ width: "auto", height: "auto" }}
             />
             <h3 className="text-xl text-green mt-2 mb-1 font-bold">
               {benefit.title}
