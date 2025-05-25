@@ -5,9 +5,10 @@ import React, { useState } from "react";
 
 interface SelectProps {
   options: Option[];
+  selectChange: (option: Option) => void;
 }
 
-const Select: React.FC<SelectProps> = ({ options }) => {
+const Select: React.FC<SelectProps> = ({ options, selectChange }) => {
   const defaultOption = options.find((opt) => opt.selected) || options[0];
   const [selected, setSelected] = useState(defaultOption);
   const [open, setOpen] = useState(false);
@@ -16,6 +17,7 @@ const Select: React.FC<SelectProps> = ({ options }) => {
     if (!option.disabled) {
       setSelected(option);
       setOpen(false);
+      selectChange(option);
     }
   };
 
@@ -70,5 +72,4 @@ const Select: React.FC<SelectProps> = ({ options }) => {
     </div>
   );
 };
-
 export default Select;

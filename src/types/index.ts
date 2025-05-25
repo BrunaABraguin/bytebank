@@ -12,3 +12,8 @@ export type Transaction = {
   amount: number;
   month: string;
 };
+
+export type FormValues = {
+  type: string;
+  amount: string;
+};

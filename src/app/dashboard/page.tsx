@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import BalanceCard from "./components/BalanceCard";
@@ -6,7 +7,17 @@ import NewTransactionCard from "./components/NewTransactionCard";
 import Statement from "./components/Statement";
 import { transactions } from "@/data";
 
-const Dashboard: React.FC = () => {
+function Dashboard() {
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const res = await fetch("/api/transactions");
+      const data = await res.json();
+      console.log(data);
+    };
+
+    fetchTransactions();
+  }, []);
+
   return (
     <div className="bg-green-light">
       <Header />
@@ -20,6 +31,6 @@ const Dashboard: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Dashboard;

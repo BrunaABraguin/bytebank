@@ -7,9 +7,8 @@ interface StatementProps {
 
 const Statement: React.FC<StatementProps> = ({ transactions }) => {
   return (
-    <aside className="bg-white rounded-lg max-w-sm p-8 md:col-span-1">
+    <aside className="bg-white rounded-lg p-8 md:col-span-1 max-lg:m-6">
       <h2 className="text-xl font-bold mb-4">Extrato</h2>
-
       {transactions.map((tx) => (
         <div key={tx.id} className="mb-4 border-b border-green pb-2">
           <div className="flex justify-between text-sm text-green font-semibold">
