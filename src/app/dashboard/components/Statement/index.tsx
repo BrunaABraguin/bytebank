@@ -1,21 +1,11 @@
-"use client";
-
 import { Transaction } from "@/types";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-const Statement: React.FC = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+interface StatementProps {
+  transactions: Transaction[]
+}
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      const res = await fetch("/api/transactions");
-      const data = await res.json();
-      setTransactions(data);
-    };
-
-    fetchTransactions();
-  }, []);
-
+const Statement: React.FC<StatementProps> = ({ transactions }) => {
   const handleTranslateType = (type: string) => {
     switch (type) {
       case "income":

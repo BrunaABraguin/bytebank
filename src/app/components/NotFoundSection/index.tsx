@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react";
 import Image from "next/image";
-import Button from '../Button';
+import Button from "../Button";
+import Link from "next/link";
 
 const NotFoundSection: React.FC = () => (
   <section className="bg-gradient-to-b from-green-dark to-white text-center items-center flex flex-col justify-center min-h-screen pt-6">
@@ -13,14 +14,11 @@ const NotFoundSection: React.FC = () => (
         tentar novamente?
       </p>
     </div>
-    <Button
-      className="mt-4"
-      variant="primary"
-      color="orange"
-      onClick={() => window.location.assign("/")}
-    >
-      Voltar ao início
-    </Button>
+    <Link href="/">
+      <Button className="mt-4" variant="primary" color="orange">
+        Voltar ao início
+      </Button>
+    </Link>
     <Image
       src="/not-found.svg"
       alt="Página não encontrada"

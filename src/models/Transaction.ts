@@ -5,10 +5,16 @@ export interface ITransaction extends Document {
   type: TransactionEnum;
   amount: number;
   date: Date;
+  accountId: string;
 }
 
 const TransactionSchema: Schema = new Schema(
   {
+    accountId: {
+      type: Schema.Types.ObjectId,
+      ref: "Account",
+      required: true
+    },
     type: {
       type: String,
       enum: Object.values(TransactionEnum),

@@ -1,14 +1,13 @@
-import mongoose, { Schema, Document, Types } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface IAccount extends Document {
-  ownerName: string;
+  ownerEmail: string;
   balance: number;
-  transactions: Types.ObjectId[];
 }
 
 const AccountSchema: Schema = new Schema(
   {
-    ownerName: {
+    ownerEmail: {
       type: String,
       required: true,
     },
@@ -16,12 +15,6 @@ const AccountSchema: Schema = new Schema(
       type: Number,
       default: 0,
     },
-    transactions: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Transaction",
-      },
-    ],
   },
   { timestamps: true }
 );

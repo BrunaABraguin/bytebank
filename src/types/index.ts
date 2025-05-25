@@ -24,14 +24,15 @@ export type FormValues = {
 };
 
 export type Account = {
-  ownerName: string;
+  _id: string;
+  ownerEmail: string;
   balance: number;
   transactions: Transaction[];
-}
+};
 
 export type User = {
-  _id: string,
+  _id: string;
   account: Account;
   name: string;
   email: string;
-}
+};
