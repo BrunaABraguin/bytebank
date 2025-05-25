@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import Transaction from "../../models/Transaction";
-import connectMongoDB from "../../libs/mongoDB";
+import connectToMongoDB from "@/libs/mongoDB";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await connectMongoDB();
+  await connectToMongoDB();
 
   if (req.method === "GET") {
     try {

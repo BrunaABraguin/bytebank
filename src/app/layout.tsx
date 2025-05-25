@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,12 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pt-br"
-      className={`${inter.className} antialiased`}
-      suppressHydrationWarning
-    >
-      <body>{children}</body>
+    <html lang="pt-BR">
+      <body className={`${inter.variable} antialiased`}>
+        <SpeedInsights />
+        {children}
+      </body>
     </html>
   );
 }

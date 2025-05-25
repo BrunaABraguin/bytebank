@@ -1,23 +1,10 @@
-import { Transaction } from "@/types";
-import React, { useEffect } from "react";
-import { GetServerSideProps } from "next";
-interface StatementProps {
-  transactions: Transaction[];
-}
+"use client";
 
-export const getServerSideProps: GetServerSideProps<StatementProps> = async (
-  context
-) => {
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const host = context.req.headers.host;
-  const baseUrl = `${protocol}://${host}`;
-  const res = await fetch(`${baseUrl}/api/transactions`);
-  const transactions = await res.json();
-  return { props: { transactions } };
-};
+import { Transaction } from "@/types";
+import React, { useEffect, useState } from "react";
 
 const Statement: React.FC = () => {
-  const [transactions, setTransactions] = React.useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -61,7 +48,9 @@ const Statement: React.FC = () => {
             </span>
           </div>
 
-          <div className="text-black font-medium">{handleTranslateType(tx.type)}</div>
+          <div className="text-black font-medium">
+            {handleTranslateType(tx.type)}
+          </div>
 
           <div
             className={`font-bold ${

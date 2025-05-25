@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import connectToMongoDB from "@/libs/mongoDB";
 import Transaction from "@/models/Transaction";
 import { transactions } from "@/data";
+import connectToMongoDB from "@/libs/mongoDB";
 
 export default async function handler(
   req: NextApiRequest,
