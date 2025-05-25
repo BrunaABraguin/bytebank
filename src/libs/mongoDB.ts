@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-console.log("URI:", process.env.MONGODB_URI);
-
 const connectToMongoDB = async (): Promise<void> => {
   try {
     if (!process.env.MONGODB_URI) {

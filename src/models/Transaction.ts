@@ -1,17 +1,17 @@
+import { TransactionEnum } from "@/types";
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface ITransaction extends Document {
-  type: "depósito" | "transferência" | "pagamento" | "saque";
+  type: TransactionEnum;
   amount: number;
   date: Date;
-  description?: string;
 }
 
 const TransactionSchema: Schema = new Schema(
   {
     type: {
       type: String,
-      enum: ["depósito", "transferência", "pagamento", "saque"],
+      enum: Object.values(TransactionEnum),
       required: true,
     },
     amount: {
@@ -21,9 +21,6 @@ const TransactionSchema: Schema = new Schema(
     date: {
       type: Date,
       default: Date.now,
-    },
-    description: {
-      type: String,
     },
   },
   { timestamps: true }

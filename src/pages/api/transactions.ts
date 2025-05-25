@@ -17,7 +17,7 @@ export default async function handler(
       res.status(500).json({ error: "Erro ao buscar transações" });
     }
   } else if (req.method === "POST") {
-    const { type, amount, date, description } = req.body;
+    const { type, amount } = req.body;
 
     if (!type || !amount) {
       return res
@@ -29,8 +29,7 @@ export default async function handler(
       const newTransaction = await Transaction.create({
         type,
         amount,
-        date: date ? new Date(date) : new Date(),
-        description,
+        date: new Date(),
       });
 
       res.status(201).json(newTransaction);

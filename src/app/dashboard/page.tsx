@@ -1,23 +1,12 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import BalanceCard from "./components/BalanceCard";
 import NewTransactionCard from "./components/NewTransactionCard";
 import Statement from "./components/Statement";
-import { transactions } from "@/data";
 
 function Dashboard() {
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      const res = await fetch("/api/transactions");
-      const data = await res.json();
-      console.log(data);
-    };
-
-    fetchTransactions();
-  }, []);
-
   return (
     <div className="bg-green-light">
       <Header />
@@ -26,8 +15,13 @@ function Dashboard() {
         <main className="md:col-span-2 px-6 space-y-6">
           <BalanceCard balance={2500} />
           <NewTransactionCard />
-          <Statement transactions={transactions} />
+          <aside className="block lg:hidden">
+            <Statement />
+          </aside>
         </main>
+        <aside className="hidden lg:block h-full">
+          <Statement />
+        </aside>
       </div>
     </div>
   );

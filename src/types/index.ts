@@ -5,15 +5,20 @@ export type Option = {
   selected?: boolean;
 };
 
+export enum TransactionEnum {
+  INCOME = "income",
+  EXPENSE = "expense",
+  TRANSFER = "transfer",
+}
+
 export type Transaction = {
-  id: number;
-  date: string;
-  type: string;
+  _id: number;
+  date: Date;
+  type: TransactionEnum;
   amount: number;
-  month: string;
 };
 
 export type FormValues = {
-  type: string;
+  type: TransactionEnum;
   amount: string;
 };

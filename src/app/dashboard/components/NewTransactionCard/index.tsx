@@ -4,19 +4,36 @@ import Button from "@/app/components/Button";
 import InputValue from "@/app/components/InputValue";
 import Select from "@/app/components/Select";
 import { transactionOptions } from "@/constants";
-import { FormValues } from "@/types";
+import { FormValues, TransactionEnum } from "@/types";
 import { useForm } from "react-hook-form";
 
 const NewTransactionCard: React.FC = () => {
   const { handleSubmit, setValue } = useForm<FormValues>({
     defaultValues: {
-      type: transactionOptions[0]?.value,
+      type: TransactionEnum.TRANSFER,
       amount: "",
     },
   });
 
   const onSubmit = (data: FormValues) => {
-    console.log(data);
+    fetch("/api/transactions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        type: data.type,
+        amount: Number(data.amount),
+        date: new Date(),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Transaction created:", data);
+      })
+      .catch((error) => {
+        console.error("Error creating transaction:", error);
+      });
   };
 
   return (
@@ -36,7 +53,9 @@ const NewTransactionCard: React.FC = () => {
         <div className="space-y-3">
           <Select
             options={transactionOptions}
-            selectChange={(option) => setValue("type", option.value)}
+            selectChange={(option) =>
+              setValue("type", option.value as TransactionEnum)
+            }
           />
           <InputValue changeValue={(value) => setValue("amount", value)} />
           <div className="flex flex-col text-sm text-green-dark w-fit gap-4 text-center md:text-left font-semibold">
