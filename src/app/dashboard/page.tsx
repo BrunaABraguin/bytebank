@@ -50,7 +50,7 @@ export default async function Dashboard() {
         <Sidebar />
         <main className="md:col-span-2 px-6 space-y-6">
           <BalanceCard balance={account.balance} userName={user.name} />
-          <NewTransactionCard />
+          <NewTransactionCard account={account._id.toString()} />
           <aside className="block lg:hidden">
             <Statement transactions={transactions} />
           </aside>

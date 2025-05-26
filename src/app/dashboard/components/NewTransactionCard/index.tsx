@@ -5,13 +5,20 @@ import InputValue from "@/app/components/InputValue";
 import Select from "@/app/components/Select";
 import { transactionOptions } from "@/constants";
 import { FormValues, TransactionEnum } from "@/types";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-const NewTransactionCard: React.FC = () => {
+interface NewTransactionCardProps {
+  account: string;
+}
+
+const NewTransactionCard: React.FC<NewTransactionCardProps> = ({ account }) => {
+  const router = useRouter();
   const { handleSubmit, setValue } = useForm<FormValues>({
     defaultValues: {
       type: TransactionEnum.TRANSFER,
       amount: "",
+      accountId: account,
     },
   });
 
@@ -24,12 +31,14 @@ const NewTransactionCard: React.FC = () => {
       body: JSON.stringify({
         type: data.type,
         amount: Number(data.amount),
+        accountId: account,
         date: new Date(),
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Transaction created:", data);
+        router.refresh();
       })
       .catch((error) => {
         console.error("Error creating transaction:", error);

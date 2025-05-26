@@ -2,10 +2,14 @@ import { Transaction } from "@/types";
 import React from "react";
 
 interface StatementProps {
-  transactions: Transaction[]
+  transactions: Transaction[];
 }
 
 const Statement: React.FC<StatementProps> = ({ transactions }) => {
+  const isNegative = (type: string) => {
+    return type !== "income";
+  };
+
   const handleTranslateType = (type: string) => {
     switch (type) {
       case "income":
@@ -44,10 +48,12 @@ const Statement: React.FC<StatementProps> = ({ transactions }) => {
 
           <div
             className={`font-bold ${
-              tx.amount < 0 ? "text-red-600" : "text-black"
+              isNegative(tx.type) ? "text-red-600" : "text-black"
             }`}
           >
-            {tx.amount < 0 ? `-R$ ${Math.abs(tx.amount)}` : `R$ ${tx.amount}`}
+            {isNegative(tx.type)
+              ? `-R$ ${Math.abs(tx.amount)}`
+              : `R$ ${tx.amount}`}
           </div>
         </div>
       ))}

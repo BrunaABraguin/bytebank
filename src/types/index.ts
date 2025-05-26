@@ -21,6 +21,7 @@ export type Transaction = {
 export type FormValues = {
   type: TransactionEnum;
   amount: string;
+  accountId: string;
 };
 
 export type Account = {

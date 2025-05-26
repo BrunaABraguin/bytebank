@@ -17,7 +17,7 @@ export const transactionOptions: Option[] = [
     label: "Selecione o tipo de transação",
     disabled: true,
   },
-  { value: "transfer", label: "DOC/TED" },
-  { value: "income", label: "Depósito" },
-  { value: "expense", label: "Saque" },
+  { value: "transfer", label: "Transferência" },
+  { value: "income", label: "Receita" },
+  { value: "expense", label: "Despesa" },
 ];

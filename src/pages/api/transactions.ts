@@ -17,9 +17,9 @@ export default async function handler(
       res.status(500).json({ error: "Erro ao buscar transações" });
     }
   } else if (req.method === "POST") {
-    const { type, amount } = req.body;
+    const { type, amount, accountId } = req.body;
 
-    if (!type || !amount) {
+    if (!type || !amount || !accountId) {
       return res
         .status(400)
         .json({ error: "Campos obrigatórios não preenchidos" });
@@ -29,6 +29,7 @@ export default async function handler(
       const newTransaction = await Transaction.create({
         type,
         amount,
+        accountId,
         date: new Date(),
       });
 
