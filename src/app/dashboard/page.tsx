@@ -10,7 +10,7 @@ import Account from "@/models/Account";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import BalanceCard from "./components/BalanceCard";
-import NewTransactionCard from "./components/NewTransactionCard";
+import { NewTransactionCard } from "./components/NewTransactionCard";
 import Statement from "./components/Statement";
 
 export default async function Dashboard() {
@@ -55,7 +55,7 @@ export default async function Dashboard() {
             <Statement transactions={transactions} />
           </aside>
         </main>
-        <aside className="hidden lg:block h-full">
+        <aside className="hidden lg:block h-full mb-8">
           <Statement transactions={transactions} />
         </aside>
       </div>

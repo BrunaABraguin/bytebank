@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import Transaction from "../../models/Transaction";
 import connectToMongoDB from "@/libs/mongoDB";
+import Account from "@/models/Account";
 
 export default async function handler(
   req: NextApiRequest,
@@ -32,6 +33,20 @@ export default async function handler(
         accountId,
         date: new Date(),
       });
+
+      const account = await Account.findById(accountId);
+
+      if (!account) {
+        return res.status(404).json({ error: "Conta não encontrada" });
+      }
+
+      if (type === "income") {
+        account.balance += amount;
+      } else if (type === "expense" || type === "transfer") {
+        account.balance -= amount;
+      }
+
+      await account.save();
 
       res.status(201).json(newTransaction);
     } catch (error) {

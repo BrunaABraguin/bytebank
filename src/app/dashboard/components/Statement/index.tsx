@@ -24,40 +24,50 @@ const Statement: React.FC<StatementProps> = ({ transactions }) => {
   };
 
   return (
-    <aside className="bg-white rounded-lg p-8 md:col-span-1 h-full">
+    <div className="bg-white rounded-lg p-8 md:col-span-1">
       <h2 className="text-xl font-bold mb-4">Extrato</h2>
-      {transactions.map((tx) => (
-        <div key={tx._id} className="mb-4 border-b border-green pb-2">
-          <div className="flex justify-between text-sm text-green font-semibold">
-            <span>
-              {(() => {
-                const month = new Date(tx.date).toLocaleString("pt-BR", {
-                  month: "long",
-                });
-                return month.charAt(0).toUpperCase() + month.slice(1);
-              })()}
-            </span>
-            <span className="text-gray-400">
-              {new Date(tx.date).toLocaleDateString("pt-BR")}
-            </span>
-          </div>
-
-          <div className="text-black font-medium">
-            {handleTranslateType(tx.type)}
-          </div>
-
-          <div
-            className={`font-bold ${
-              isNegative(tx.type) ? "text-red-600" : "text-black"
-            }`}
-          >
-            {isNegative(tx.type)
-              ? `-R$ ${Math.abs(tx.amount)}`
-              : `R$ ${tx.amount}`}
-          </div>
+      {transactions.length === 0 && (
+        <div className="text-gray-500 text-center">
+          Nenhuma transação encontrada.
         </div>
-      ))}
-    </aside>
+      )}
+      <div className="overflow-y-auto max-h-dvh">
+        {transactions.map((tx) => (
+          <div
+            key={tx._id}
+            className="mb-4 border-b border-green pb-2"
+          >
+            <div className="flex justify-between text-sm text-green font-semibold">
+              <span>
+                {(() => {
+                  const month = new Date(tx.date).toLocaleString("pt-BR", {
+                    month: "long",
+                  });
+                  return month.charAt(0).toUpperCase() + month.slice(1);
+                })()}
+              </span>
+              <span className="text-gray-400">
+                {new Date(tx.date).toLocaleDateString("pt-BR")}
+              </span>
+            </div>
+
+            <div className="text-black font-medium">
+              {handleTranslateType(tx.type)}
+            </div>
+
+            <div
+              className={`font-bold ${
+                isNegative(tx.type) ? "text-red-600" : "text-black"
+              }`}
+            >
+              {isNegative(tx.type)
+                ? `-R$ ${Math.abs(tx.amount)}`
+                : `R$ ${tx.amount}`}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

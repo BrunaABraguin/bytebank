@@ -3,17 +3,22 @@
 import Button from "@/app/components/Button";
 import InputValue from "@/app/components/InputValue";
 import Select from "@/app/components/Select";
+import { Toast } from "@/app/components/Toast";
 import { transactionOptions } from "@/constants";
 import { FormValues, TransactionEnum } from "@/types";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface NewTransactionCardProps {
   account: string;
 }
 
-const NewTransactionCard: React.FC<NewTransactionCardProps> = ({ account }) => {
+export const NewTransactionCard: React.FC<NewTransactionCardProps> = ({
+  account,
+}) => {
   const router = useRouter();
+  const [showToast, setShowToast] = useState(false);
   const { handleSubmit, setValue } = useForm<FormValues>({
     defaultValues: {
       type: TransactionEnum.TRANSFER,
@@ -21,6 +26,14 @@ const NewTransactionCard: React.FC<NewTransactionCardProps> = ({ account }) => {
       accountId: account,
     },
   });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [showToast]);
 
   const onSubmit = (data: FormValues) => {
     fetch("/api/transactions", {
@@ -36,14 +49,24 @@ const NewTransactionCard: React.FC<NewTransactionCardProps> = ({ account }) => {
       }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Transaction created:", data);
+      .then(() => {
         router.refresh();
+        setShowToast(true);
       })
       .catch((error) => {
         console.error("Error creating transaction:", error);
       });
   };
+
+  if (showToast) {
+    return (
+      <Toast
+        type="success"
+        message="Transação criada com sucesso!"
+        onClose={() => setShowToast(false)}
+      />
+    );
+  }
 
   return (
     <section className="relative bg-gray-dark rounded-xl p-6 min-h-[478px] overflow-hidden">
@@ -77,5 +100,3 @@ const NewTransactionCard: React.FC<NewTransactionCardProps> = ({ account }) => {
     </section>
   );
 };
-
-export default NewTransactionCard;

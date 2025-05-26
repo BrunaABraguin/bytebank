@@ -6,7 +6,7 @@ interface BalanceProps {
 }
 
 const Balance: React.FC<BalanceProps> = ({ balance }) => {
-  const [viewBalance, setViewBalance] = useState(false);
+  const [viewBalance, setViewBalance] = useState(true);
 
   return (
     <div className="z-10 text-left space-y-1 md:my-auto">
