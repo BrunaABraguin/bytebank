@@ -12,10 +12,11 @@ export enum TransactionEnum {
 }
 
 export type Transaction = {
-  _id: number;
+  _id: string;
   date: Date;
   type: TransactionEnum;
   amount: number;
+  accountId: string;
 };
 
 export type FormValues = {

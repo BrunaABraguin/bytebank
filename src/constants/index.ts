@@ -21,3 +21,16 @@ export const transactionOptions: Option[] = [
   { value: "income", label: "Receita" },
   { value: "expense", label: "Despesa" },
 ];
+
+export const handleTranslateType = (type: string) => {
+  switch (type) {
+    case "income":
+      return "Receita";
+    case "expense":
+      return "Despesa";
+    case "transfer":
+      return "Transferência";
+    default:
+      return type;
+  }
+};

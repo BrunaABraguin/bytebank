@@ -1,17 +1,12 @@
 import connectToMongoDB from "@/libs/mongoDB";
 import User from "@/models/User";
-import {
-  User as UserType,
-  Account as AccountType,
-  Transaction as TransactionType,
-} from "@/types";
-import Transaction from "@/models/Transaction";
 import Account from "@/models/Account";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import BalanceCard from "./components/BalanceCard";
 import { NewTransactionCard } from "./components/NewTransactionCard";
 import Statement from "./components/Statement";
+import { User as UserType, Account as AccountType } from "@/types";
 
 export default async function Dashboard() {
   await connectToMongoDB();
@@ -37,26 +32,25 @@ export default async function Dashboard() {
     );
   }
 
-  const transactions = await Transaction.find({
-    accountId: account._id.toString(),
-  })
-    .sort({ date: -1 })
-    .lean<TransactionType[]>();
-
   return (
     <div className="bg-green-light">
       <Header user={user} />
       <div className="grid grid-cols-1 lg:grid-cols-4 min-h-screen xl:px-28">
         <Sidebar />
         <main className="md:col-span-2 px-6 space-y-6">
-          <BalanceCard balance={account.balance} userName={user.name} />
+          <BalanceCard
+            userName={user.name}
+            updateBalance={false}
+            balance={account.balance}
+            userEmail={user.email.toString()}
+          />
           <NewTransactionCard account={account._id.toString()} />
           <aside className="block lg:hidden">
-            <Statement transactions={transactions} />
+            <Statement accountId={account._id.toString()} />
           </aside>
         </main>
         <aside className="hidden lg:block h-full mb-8">
-          <Statement transactions={transactions} />
+          <Statement accountId={account._id.toString()} />
         </aside>
       </div>
     </div>
