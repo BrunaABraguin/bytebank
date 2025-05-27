@@ -29,7 +29,7 @@ async function handleGetTransactions(
         .json({ error: "Campos obrigatórios não preenchidos" });
     }
 
-    const accounts = await Account.find({ ownerEmail: email })
+    const accounts = await Account.findOne({ ownerEmail: email })
       .sort({ date: -1 })
       .lean<AccountType>();
     return res.status(200).json(accounts);

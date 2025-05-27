@@ -1,18 +1,21 @@
 "use client";
 import { Transaction } from "@/types";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "@/app/components/Modal";
 import { ButtonEdit } from "../Buttons/ButtonEdit";
 import ModalContent from "../ModalContent";
 import { handleTranslateType } from "@/constants";
 import { Toast } from "@/app/components/Toast";
+import { useAppContext } from "@/context/AppContext";
+import { useFetchTransactions } from "@/hooks/useFetchTransactions";
 
 interface StatementProps {
   accountId: string;
 }
 
 const Statement: React.FC<StatementProps> = ({ accountId }) => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const { transactions, setTransactions } = useAppContext();
+  const { fetchTransactions } = useFetchTransactions();
   const [showModal, setShowModal] = useState(false);
   const [showToastSuccess, setShowToastSuccess] = useState(false);
   const [selectedTransaction, setSelectedTransaction] =
@@ -21,29 +24,15 @@ const Statement: React.FC<StatementProps> = ({ accountId }) => {
     return type !== "income";
   };
 
-  const fetchTransactions = useCallback(async () => {
-    try {
-      const response = await fetch(`/api/transactions?accountId=${accountId}`);
-      if (!response.ok) {
-        throw new Error("Erro ao buscar transações");
-      }
-      const data = await response.json();
-      setTransactions(data);
-    } catch (error) {
-      console.error("Erro ao buscar transações:", error);
-      return [];
-    }
-  }, [accountId]);
-
   useEffect(() => {
-    fetchTransactions();
-  }, [accountId, fetchTransactions]);
+    fetchTransactions(accountId, setTransactions);
+  }, []);
 
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedTransaction(null);
     setShowToastSuccess(true);
-    fetchTransactions();
+    fetchTransactions(accountId, setTransactions);
   };
 
   return (

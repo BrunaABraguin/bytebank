@@ -5,21 +5,14 @@ import { useCallback, useEffect, useState } from "react";
 
 interface BalanceCardProps {
   userName: string;
-  updateBalance: boolean;
-  balance: number;
   userEmail: string;
 }
 
-const BalanceCard: React.FC<BalanceCardProps> = ({
-  userName,
-  updateBalance,
-  balance,
-  userEmail,
-}) => {
-  const [currentBalance, setCurrentBalance] = useState<number>(balance);
+const BalanceCard: React.FC<BalanceCardProps> = ({ userName, userEmail }) => {
+  const [currentBalance, setCurrentBalance] = useState<number>(0);
   const fetchBalance = useCallback(async () => {
     try {
-      const response = await fetch(`/api/balance?email=${userEmail}`);
+      const response = await fetch(`/api/account?email=${userEmail}`);
       if (!response.ok) {
         throw new Error("Erro ao buscar saldo");
       }
@@ -32,10 +25,8 @@ const BalanceCard: React.FC<BalanceCardProps> = ({
   }, [userEmail]);
 
   useEffect(() => {
-    if (updateBalance) {
-      fetchBalance();
-    }
-  }, [fetchBalance, updateBalance]);
+    fetchBalance();
+  }, [userEmail, fetchBalance]);
 
   return (
     <section className="relative bg-green-dark text-white rounded-lg overflow-hidden p-8 flex flex-col sm:flex-row md:justify-between items-center max-md:gap-8 md:items-start min-h-125 md:min-h-100">

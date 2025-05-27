@@ -2,11 +2,12 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { AppProvider } from "@/context/AppContext";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  display: "swap", 
+  display: "swap",
   preload: true,
 });
 
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={inter.variable}>
       <body className="antialiased" suppressHydrationWarning={true}>
-        {children}
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );

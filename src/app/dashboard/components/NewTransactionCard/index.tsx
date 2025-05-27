@@ -5,25 +5,28 @@ import InputValue from "@/app/components/InputValue";
 import Select from "@/app/components/Select";
 import { Toast } from "@/app/components/Toast";
 import { transactionOptions } from "@/constants";
+import { useAppContext } from "@/context/AppContext";
+import { useFetchTransactions } from "@/hooks/useFetchTransactions";
 import { FormValues, TransactionEnum } from "@/types";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface NewTransactionCardProps {
-  account: string;
+  accountId: string;
 }
 
 export const NewTransactionCard: React.FC<NewTransactionCardProps> = ({
-  account,
+  accountId,
 }) => {
-  const router = useRouter();
+  const { setTransactions } = useAppContext();
+  const { fetchTransactions } = useFetchTransactions();
   const [showToast, setShowToast] = useState(false);
+  const [showToastError, setShowToastError] = useState(false);
   const { handleSubmit, setValue } = useForm<FormValues>({
     defaultValues: {
       type: TransactionEnum.TRANSFER,
       amount: "",
-      accountId: account,
+      accountId: accountId,
     },
   });
 
@@ -44,32 +47,39 @@ export const NewTransactionCard: React.FC<NewTransactionCardProps> = ({
       body: JSON.stringify({
         type: data.type,
         amount: Number(data.amount),
-        accountId: account,
+        accountId: accountId,
         date: new Date(),
       }),
     })
-      .then((response) => response.json())
-      .then(() => {
-        router.refresh();
+      .then((response) => {
+        response.json();
         setShowToast(true);
+      })
+      .then(async () => {
+        fetchTransactions(accountId, setTransactions);
       })
       .catch((error) => {
         console.error("Error creating transaction:", error);
+        setShowToastError(true);
       });
   };
 
-  if (showToast) {
-    return (
-      <Toast
-        type="success"
-        message="Transação criada com sucesso!"
-        onClose={() => setShowToast(false)}
-      />
-    );
-  }
-
   return (
     <section className="relative bg-gray-dark rounded-xl p-6 min-h-[478px] overflow-hidden">
+      {showToast && (
+        <Toast
+          type="success"
+          message="Transação criada com sucesso!"
+          onClose={() => setShowToast(false)}
+        />
+      )}
+      {showToastError && (
+        <Toast
+          type="error"
+          message="Erro ao atualizar as transações"
+          onClose={() => setShowToastError(false)}
+        />
+      )}
       <div className="absolute top-0 right-0 w-32 h-32 bg-no-repeat bg-contain bg-[url('/pixels3.svg')]" />
       <div className="absolute bottom-0 left-0 w-32 h-32 bg-no-repeat bg-contain bg-[url('/pixels4.svg')]" />
       <div className="absolute bottom-0 md:bottom-4 right-4 w-64 md:w-80 h-56 bg-no-repeat bg-contain bg-[url('/dashboard-transaction.svg')]" />

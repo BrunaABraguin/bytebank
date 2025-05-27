@@ -3,17 +3,22 @@ import connectToMongoDB from "@/libs/mongoDB";
 import User from "@/models/User";
 import Account from "@/models/Account";
 import Transaction from "@/models/Transaction";
+import { Account as AccountType, User as UserType } from "@/types";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   await connectToMongoDB();
 
-  const user = await User.findOne({ email: "testuser@example.com" });
+  const user = await User.findOne({
+    email: "testuser@example.com",
+  }).lean<UserType>();
 
   if (!user) {
     return res.status(404).json({ message: "Usuário não encontrado" });
   }
 
-  const account = await Account.findOne({ ownerEmail: user._id.toString() });
+  const account = await Account.findOne({
+    ownerEmail: user._id,
+  }).lean<AccountType>();
 
   if (!account) {
     return res.status(200).json({ user, account: null, transactions: [] });

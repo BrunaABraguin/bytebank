@@ -20,7 +20,7 @@ export default async function Dashboard() {
   }
 
   const account = await Account.findOne({
-    ownerEmail: user.email.toString(),
+    ownerEmail: user.email,
   }).lean<AccountType>();
 
   if (!account) {
@@ -38,13 +38,8 @@ export default async function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-4 min-h-screen xl:px-28">
         <Sidebar />
         <main className="md:col-span-2 px-6 space-y-6">
-          <BalanceCard
-            userName={user.name}
-            updateBalance={false}
-            balance={account.balance}
-            userEmail={user.email.toString()}
-          />
-          <NewTransactionCard account={account._id.toString()} />
+          <BalanceCard userName={user.name} userEmail={user.email} />
+          <NewTransactionCard accountId={account._id.toString()} />
           <aside className="block lg:hidden">
             <Statement accountId={account._id.toString()} />
           </aside>
