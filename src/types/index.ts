@@ -27,14 +27,12 @@ export type FormValues = {
 
 export type Account = {
   _id: string;
-  ownerEmail: string;
+  ownerId: string;
   balance: number;
-  transactions: Transaction[];
 };
 
 export type User = {
   _id: string;
-  account: Account;
   name: string;
   email: string;
 };

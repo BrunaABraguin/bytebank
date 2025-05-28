@@ -6,27 +6,25 @@ import Select from "@/app/components/Select";
 import { Toast } from "@/app/components/Toast";
 import { transactionOptions } from "@/constants";
 import { useAppContext } from "@/context/AppContext";
+import { useCreateTransaction } from "@/hooks/useCreateTransaction";
+import { useFetchAccount } from "@/hooks/useFetchAccount";
 import { useFetchTransactions } from "@/hooks/useFetchTransactions";
 import { FormValues, TransactionEnum } from "@/types";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-interface NewTransactionCardProps {
-  accountId: string;
-}
-
-export const NewTransactionCard: React.FC<NewTransactionCardProps> = ({
-  accountId,
-}) => {
-  const { setTransactions } = useAppContext();
+export const NewTransactionCard: React.FC = () => {
+  const { account, user } = useAppContext();
   const { fetchTransactions } = useFetchTransactions();
+  const { fetchAccount } = useFetchAccount();
+  const { fetchCreateTransaction } = useCreateTransaction();
   const [showToast, setShowToast] = useState(false);
   const [showToastError, setShowToastError] = useState(false);
   const { handleSubmit, setValue } = useForm<FormValues>({
     defaultValues: {
       type: TransactionEnum.TRANSFER,
       amount: "",
-      accountId: accountId,
+      accountId: account?._id,
     },
   });
 
@@ -39,27 +37,20 @@ export const NewTransactionCard: React.FC<NewTransactionCardProps> = ({
   }, [showToast]);
 
   const onSubmit = (data: FormValues) => {
-    fetch("/api/transactions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        type: data.type,
-        amount: Number(data.amount),
-        accountId: accountId,
-        date: new Date(),
-      }),
-    })
-      .then((response) => {
-        response.json();
+    if (!account?._id) {
+      setShowToastError(true);
+      return;
+    }
+    fetchCreateTransaction(account._id, data.type, Number(data.amount))
+      .then(() => {
         setShowToast(true);
+        fetchTransactions(account._id).then(() => {
+          if (user?._id) {
+            fetchAccount(user._id);
+          }
+        });
       })
-      .then(async () => {
-        fetchTransactions(accountId, setTransactions);
-      })
-      .catch((error) => {
-        console.error("Error creating transaction:", error);
+      .catch(() => {
         setShowToastError(true);
       });
   };

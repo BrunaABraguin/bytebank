@@ -11,25 +11,25 @@ export default async function handler(
 ) {
   try {
     await connectToMongoDB();
-
-    const account = await Account.create({
-      ownerEmail: "testuser@example.com",
-      balance: 1000,
-    });
-
-    const user = {
+    const userMock = {
       name: "Test User",
       email: "testuser@example.com",
     };
 
-    await User.create(user);
-    const transactionsWithAccount = transactions.map(tx => ({
+    const user = await User.create(userMock);
+    const account = await Account.create({
+      ownerId: user._id,
+      balance: 1000,
+    });
+    const transactionsWithAccount = transactions.map((tx) => ({
       ...tx,
-      accountId: account._id
+      accountId: account._id,
     }));
     await Transaction.insertMany(transactionsWithAccount);
 
-    res.status(200).json({ message: "Usuário, conta e transações inseridos com sucesso!" });
+    res
+      .status(200)
+      .json({ message: "Usuário, conta e transações inseridos com sucesso!" });
   } catch (error) {
     console.error("Erro ao inserir usuário/conta/transações:", error);
     res.status(500).json({

@@ -1,27 +1,24 @@
-import { Transaction } from "@/types";
+import { useAppContext } from "@/context/AppContext";
+import { getTransactions } from "@/services/getTransactions";
 import { useState } from "react";
+import { Transaction } from "@/types";
 
 export const useFetchTransactions = () => {
-  const [loading, setLoading] = useState(false);
+  const { setTransactions } = useAppContext();
+  const [loadingTransactions, setLoadingTransactions] = useState(false);
 
   const fetchTransactions = async (
-    accountId: string,
-    setTransactions: (data: Transaction[]) => void
-  ): Promise<void> => {
-    setLoading(true);
+    accountId: string
+  ): Promise<Transaction[]> => {
+    setLoadingTransactions(true);
     try {
-      const response = await fetch(`/api/transactions?accountId=${accountId}`);
-      if (!response.ok) {
-        throw new Error("Erro ao buscar transações");
-      }
-      const data = await response.json();
+      const data = await getTransactions(accountId);
       setTransactions(data);
-    } catch (error) {
-      console.error("Erro ao buscar transações:", error);
+      return data;
     } finally {
-      setLoading(false);
+      setLoadingTransactions(false);
     }
   };
 
-  return { fetchTransactions, loading };
+  return { fetchTransactions, loadingTransactions };
 };

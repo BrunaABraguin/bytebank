@@ -1,14 +1,14 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IAccount extends Document {
-  ownerEmail: string;
+  ownerId: string;
   balance: number;
 }
 
 const AccountSchema: Schema = new Schema(
   {
-    ownerEmail: {
-      type: String,
+    ownerId: {
+      type: Schema.Types.ObjectId,
       required: true,
     },
     balance: {

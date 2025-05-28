@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { useAppContext } from "@/context/AppContext";
 
-interface BalanceProps {
-  balance: number | null | undefined; // Permitir valores opcionais
-}
-
-const Balance: React.FC<BalanceProps> = ({ balance }) => {
+const Balance: React.FC = () => {
+  const { account } = useAppContext();
   const [viewBalance, setViewBalance] = useState(true);
 
-  const formattedBalance = balance
-    ? balance.toLocaleString("pt-BR", {
+  const formattedBalance = account?.balance
+    ? account.balance.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
       })

@@ -22,14 +22,14 @@ async function handleGetTransactions(
   res: NextApiResponse
 ) {
   try {
-    const { email } = req.query;
-    if (!email) {
+    const { ownerId } = req.query;
+    if (!ownerId) {
       return res
         .status(400)
         .json({ error: "Campos obrigatórios não preenchidos" });
     }
 
-    const accounts = await Account.findOne({ ownerEmail: email })
+    const accounts = await Account.findOne({ ownerId: ownerId })
       .sort({ date: -1 })
       .lean<AccountType>();
     return res.status(200).json(accounts);

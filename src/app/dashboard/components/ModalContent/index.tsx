@@ -2,6 +2,8 @@
 import Button from "@/app/components/Button";
 import { Toast } from "@/app/components/Toast";
 import { handleTranslateType } from "@/constants";
+import { useDeleteTransaction } from "@/hooks/useDeleteTransaction";
+import { useEditTransaction } from "@/hooks/useEditTransaction";
 import React, { useState } from "react";
 
 interface ModalContentProps {
@@ -17,24 +19,15 @@ const ModalContent: React.FC<ModalContentProps> = ({
   id,
   closeModal,
 }) => {
+  const { fetchDeleteTransaction } = useDeleteTransaction();
+  const { fetchPatchTransaction } = useEditTransaction();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [confirmEdit, setConfirmEdit] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [showToastError, setShowToastError] = useState(false);
 
   const handleEdit = () => {
-    fetch(`/api/transactions`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-        type,
-        amount: Number(editValue),
-      }),
-    })
-      .then((response) => response.json())
+    fetchPatchTransaction(id, type, Number(editValue))
       .then(() => {
         setConfirmEdit(false);
         setEditValue("");
@@ -46,16 +39,7 @@ const ModalContent: React.FC<ModalContentProps> = ({
   };
 
   const handleDelete = () => {
-    fetch(`/api/transactions`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
-    })
-      .then((response) => response.json())
+    fetchDeleteTransaction(id)
       .then(() => {
         setConfirmDelete(false);
         setEditValue("");
@@ -75,7 +59,6 @@ const ModalContent: React.FC<ModalContentProps> = ({
           onClose={() => setShowToastError(false)}
         />
       )}
-
       <div className="flex pl-4 gap-2">
         <span className="font-bold mb-2">Tipo de transação:</span>
         <span className="font-semibold">{handleTranslateType(type)}</span>

@@ -1,12 +1,31 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import connectToMongoDB from "@/libs/mongoDB";
 import User from "@/models/User";
-import Account from "@/models/Account";
-import Transaction from "@/models/Transaction";
-import { Account as AccountType, User as UserType } from "@/types";
+import { User as UserType } from "@/types";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   await connectToMongoDB();
+
+  if (req.method === "POST") {
+    const { name, email } = req.body;
+    if (!name || !email) {
+      return res.status(400).json({ message: "Nome e email são obrigatórios" });
+    }
+
+    try {
+      const newUser = await User.create({ name, email });
+      return res.status(201).json({
+        user: {
+          id: newUser._id.toString(),
+          name: newUser.name,
+          email: newUser.email,
+        },
+      });
+    } catch (error) {
+      console.error("Erro ao criar usuário:", error);
+      return res.status(500).json({ message: "Erro ao criar usuário" });
+    }
+  }
 
   const user = await User.findOne({
     email: "testuser@example.com",
@@ -16,35 +35,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(404).json({ message: "Usuário não encontrado" });
   }
 
-  const account = await Account.findOne({
-    ownerEmail: user._id,
-  }).lean<AccountType>();
-
-  if (!account) {
-    return res.status(200).json({ user, account: null, transactions: [] });
-  }
-
-  const transactions = await Transaction.find({
-    accountId: account._id.toString(),
-  })
-    .sort({ date: -1 })
-    .exec();
-
   return res.status(200).json({
     user: {
       id: user._id.toString(),
       name: user.name,
       email: user.email,
     },
-    account: {
-      id: account._id.toString(),
-    },
-    transactions: transactions.map((transaction) => ({
-      id: transaction._id.toString(),
-      type: transaction.type,
-      amount: transaction.amount,
-      date: transaction.date.toISOString(),
-    })),
   });
 }
 

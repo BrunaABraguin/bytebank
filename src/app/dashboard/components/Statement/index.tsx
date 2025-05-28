@@ -1,6 +1,6 @@
 "use client";
 import { Transaction } from "@/types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Modal } from "@/app/components/Modal";
 import { ButtonEdit } from "../Buttons/ButtonEdit";
 import ModalContent from "../ModalContent";
@@ -8,14 +8,12 @@ import { handleTranslateType } from "@/constants";
 import { Toast } from "@/app/components/Toast";
 import { useAppContext } from "@/context/AppContext";
 import { useFetchTransactions } from "@/hooks/useFetchTransactions";
+import { useFetchAccount } from "@/hooks/useFetchAccount";
 
-interface StatementProps {
-  accountId: string;
-}
-
-const Statement: React.FC<StatementProps> = ({ accountId }) => {
-  const { transactions, setTransactions } = useAppContext();
-  const { fetchTransactions } = useFetchTransactions();
+const Statement: React.FC = () => {
+  const { transactions, account, user } = useAppContext();
+  const { fetchTransactions, loadingTransactions } = useFetchTransactions();
+  const { fetchAccount } = useFetchAccount();
   const [showModal, setShowModal] = useState(false);
   const [showToastSuccess, setShowToastSuccess] = useState(false);
   const [selectedTransaction, setSelectedTransaction] =
@@ -24,15 +22,17 @@ const Statement: React.FC<StatementProps> = ({ accountId }) => {
     return type !== "income";
   };
 
-  useEffect(() => {
-    fetchTransactions(accountId, setTransactions);
-  }, []);
-
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedTransaction(null);
     setShowToastSuccess(true);
-    fetchTransactions(accountId, setTransactions);
+    if (account?._id) {
+      fetchTransactions(account._id).then(() => {
+        if (user?._id) {
+          fetchAccount(user._id);
+        }
+      });
+    }
   };
 
   return (
@@ -40,7 +40,7 @@ const Statement: React.FC<StatementProps> = ({ accountId }) => {
       {showToastSuccess && (
         <Toast
           type="success"
-          message="Transação criada com sucesso!"
+          message="Atualização realizada com sucesso!"
           onClose={() => setShowToastSuccess(false)}
         />
       )}
@@ -63,6 +63,11 @@ const Statement: React.FC<StatementProps> = ({ accountId }) => {
           </div>
         </div>
         <div className="overflow-y-auto max-h-dvh">
+          {loadingTransactions && (
+            <div className="text-gray-500 text-center">
+              Carregando...
+            </div>
+          )}
           {transactions.length === 0 && (
             <div className="text-gray-500 text-center">
               Nenhuma transação encontrada.
