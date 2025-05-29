@@ -3,6 +3,10 @@ export async function patchTransaction(
   transactionType: string,
   newValue: number
 ): Promise<void> {
+  if (process.env.NODE_ENV !== "production") {
+    console.log("Mock atualizado");
+    return;
+  }
   try {
     await fetch(`/api/transactions`, {
       method: "PATCH",

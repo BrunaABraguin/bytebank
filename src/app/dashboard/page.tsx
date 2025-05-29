@@ -8,11 +8,21 @@ import Statement from "./components/Statement";
 import { User as UserType } from "@/types";
 
 export default async function Dashboard() {
-  await connectToMongoDB();
+  let user: UserType | null;
 
-  const user = await User.findOne({
-    email: "testuser@example.com",
-  }).lean<UserType>();
+  if (process.env.NODE_ENV !== "production") {
+    user = {
+      _id: "mockid123",
+      name: "Usuário de Teste",
+      email: "mockuser@example.com",
+    } as UserType;
+  } else {
+    await connectToMongoDB();
+
+    user = await User.findOne({
+      email: "testuser@example.com",
+    }).lean<UserType>();
+  }
 
   if (!user) {
     return <div>Usuário não encontrado</div>;

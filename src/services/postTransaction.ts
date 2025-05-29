@@ -3,6 +3,10 @@ export async function postTransaction(
   transactionType: string,
   value: number
 ): Promise<void> {
+  if (process.env.NODE_ENV !== "production") {
+    console.log("Mock atualizado");
+    return;
+  }
   try {
     await fetch(`/api/transactions`, {
       method: "POST",

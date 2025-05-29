@@ -64,11 +64,9 @@ const Statement: React.FC = () => {
         </div>
         <div className="overflow-y-auto max-h-dvh">
           {loadingTransactions && (
-            <div className="text-gray-500 text-center">
-              Carregando...
-            </div>
+            <div className="text-gray-500 text-center">Carregando...</div>
           )}
-          {transactions.length === 0 && (
+          {!loadingTransactions && transactions.length === 0 && (
             <div className="text-gray-500 text-center">
               Nenhuma transação encontrada.
             </div>

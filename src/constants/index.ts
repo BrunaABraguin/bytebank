@@ -5,7 +5,7 @@ export const NAV_LINKS = [
 ];
 
 export const NAV_LINKS_DASHBOARD = [
-  { href: "/dashboard", label: "Início" },
+  { href: "/dashboard", label: "Dashboard" },
   { href: "/dashboard/transfer", label: "Transferências" },
   { href: "/dashboard/investments", label: "Investimentos" },
   { href: "/dashboard/services", label: "Outros serviços" },

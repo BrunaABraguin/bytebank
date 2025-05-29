@@ -1,7 +1,8 @@
 "use client";
 import Button from "@/app/components/Button";
+import Select from "@/app/components/Select";
 import { Toast } from "@/app/components/Toast";
-import { handleTranslateType } from "@/constants";
+import { handleTranslateType, transactionOptions } from "@/constants";
 import { useDeleteTransaction } from "@/hooks/useDeleteTransaction";
 import { useEditTransaction } from "@/hooks/useEditTransaction";
 import React, { useState } from "react";
@@ -24,18 +25,26 @@ const ModalContent: React.FC<ModalContentProps> = ({
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [confirmEdit, setConfirmEdit] = useState(false);
   const [editValue, setEditValue] = useState(value);
+  const [editType, setEditType] = useState(type);
   const [showToastError, setShowToastError] = useState(false);
 
   const handleEdit = () => {
-    fetchPatchTransaction(id, type, Number(editValue))
-      .then(() => {
-        setConfirmEdit(false);
-        setEditValue("");
-        closeModal();
-      })
-      .catch(() => {
-        setShowToastError(true);
-      });
+    if (editType !== type || editValue !== value) {
+      fetchPatchTransaction(id, editType, Number(editValue))
+        .then(() => {
+          setConfirmEdit(false);
+          setEditValue("");
+          closeModal();
+        })
+        .catch(() => {
+          setShowToastError(true);
+        });
+    } else {
+      setConfirmEdit(false);
+      setEditValue("");
+      closeModal();
+    }
+    
   };
 
   const handleDelete = () => {
@@ -59,22 +68,40 @@ const ModalContent: React.FC<ModalContentProps> = ({
           onClose={() => setShowToastError(false)}
         />
       )}
-      <div className="flex pl-4 gap-2">
-        <span className="font-bold mb-2">Tipo de transação:</span>
-        <span className="font-semibold">{handleTranslateType(type)}</span>
-      </div>
-      <div className="flex pl-4 gap-2">
-        <span className="font-bold mb-2">Valor:</span>
-        <span className="font-semibold">
-          {new Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          }).format(Number(value))}
-        </span>
+      <div className="grid pr-4 gap-8">
+        <div className="flex pl-4 gap-2 justify-between">
+          <span className="font-bold mb-2">Tipo de transação:</span>
+          {confirmEdit ? (
+            <Select
+              options={transactionOptions}
+              selectChange={(option) => setEditType(option.value)}
+            />
+          ) : (
+            <span className="font-semibold">{handleTranslateType(type)}</span>
+          )}
+        </div>
+        <div className="flex pl-4 gap-2 justify-between">
+          <span className="font-bold mb-2">Valor:</span>
+          {confirmEdit ? (
+            <input
+              type="number"
+              className="font-semibold border rounded px-2 py-1"
+              value={editValue}
+              onChange={(e) => setEditValue(e.target.value)}
+            />
+          ) : (
+            <span className="font-semibold">
+              {new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              }).format(Number(value))}
+            </span>
+          )}
+        </div>
       </div>
       {(confirmEdit || confirmDelete) && (
-        <div className="flex pl-4 gap-2">
-          <span className="font-bold mb-2">Deseja confirmar a ação?</span>
+        <div className="flex pl-4 gap-2 mt-4">
+          <span className="font-bold">Deseja confirmar a ação?</span>
         </div>
       )}
 
