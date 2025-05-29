@@ -5,23 +5,41 @@ import Sidebar from "./components/Sidebar";
 import BalanceCard from "./components/BalanceCard";
 import { NewTransactionCard } from "./components/NewTransactionCard";
 import Statement from "./components/Statement";
-import { User as UserType } from "@/types";
+import {
+  Account as AccountType,
+  Transaction as TransactionType,
+  User as UserType,
+} from "@/types";
+import Account from "@/models/Account";
+import Transaction from "@/models/Transaction";
+import { transactions as transactionsMock } from "@/data";
 
 export default async function Dashboard() {
   let user: UserType | null;
+  let transactions: TransactionType[] = [];
 
   if (process.env.NODE_ENV !== "production") {
     user = {
-      _id: "mockid123",
+      _id: "507f1f77bcf86cd799439011",
       name: "Usuário de Teste",
       email: "mockuser@example.com",
     } as UserType;
+    transactions = transactionsMock;
   } else {
     await connectToMongoDB();
 
     user = await User.findOne({
       email: "testuser@example.com",
     }).lean<UserType>();
+
+    const account = await Account.findOne({
+      ownerId: user?._id,
+    }).lean<AccountType>();
+
+    if (account)
+      transactions = await Transaction.find({
+        accountId: account._id,
+      }).lean<TransactionType[]>();
   }
 
   if (!user) {
@@ -34,6 +52,12 @@ export default async function Dashboard() {
     email: user.email,
   };
 
+  const serializedTransactions = transactions.map((transaction) => ({
+    ...transaction,
+    _id: transaction._id.toString(),
+    accountId: transaction.accountId?.toString?.() ?? transaction.accountId,
+  }));
+
   return (
     <div className="bg-green-light">
       <Header user={serializedUser} />
@@ -43,11 +67,11 @@ export default async function Dashboard() {
           <BalanceCard userName={serializedUser.name} />
           <NewTransactionCard />
           <aside className="block lg:hidden">
-            <Statement />
+            <Statement initialTransactions={serializedTransactions} />
           </aside>
         </main>
         <aside className="hidden lg:block h-full mb-8">
-          <Statement />
+          <Statement initialTransactions={serializedTransactions} />
         </aside>
       </div>
     </div>

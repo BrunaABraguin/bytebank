@@ -1,6 +1,6 @@
 "use client";
 import { Transaction } from "@/types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "@/app/components/Modal";
 import { ButtonEdit } from "../Buttons/ButtonEdit";
 import ModalContent from "../ModalContent";
@@ -10,8 +10,12 @@ import { useAppContext } from "@/context/AppContext";
 import { useFetchTransactions } from "@/hooks/useFetchTransactions";
 import { useFetchAccount } from "@/hooks/useFetchAccount";
 
-const Statement: React.FC = () => {
-  const { transactions, account, user } = useAppContext();
+interface StatementProps {
+  initialTransactions: Transaction[] | null;
+}
+
+const Statement: React.FC<StatementProps> = ({ initialTransactions }) => {
+  const { transactions, account, user, setTransactions } = useAppContext();
   const { fetchTransactions, loadingTransactions } = useFetchTransactions();
   const { fetchAccount } = useFetchAccount();
   const [showModal, setShowModal] = useState(false);
@@ -21,6 +25,10 @@ const Statement: React.FC = () => {
   const isNegative = (type: string) => {
     return type !== "income";
   };
+
+  useEffect(() => {
+    setTransactions(initialTransactions ?? []);
+  }, []);
 
   const handleCloseModal = () => {
     setShowModal(false);
