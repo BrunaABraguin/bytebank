@@ -23,13 +23,19 @@ Este projeto é o resultado do Tech Challenge da Fase 01, consistindo no desenvo
 ```
 src/
 ├── app/                  # Configuração principal do Next.js
-├── components/           # Componentes reutilizáveis
-├── dashboard/            # Página e rota do dashboard financeiro
-├── page.tsx              # Página inicial (login)
-├── not-found.tsx         # Página para rotas não encontradas
+│   ├── components/       # Componentes reutilizáveis
+│   ├── dashboard/        # Página e rota do dashboard financeiro
+│   ├── page.tsx          # Página inicial (login)
+│   ├── not-found.tsx     # Página para rotas não encontradas
 ├── constants/            # Constantes globais do projeto
+├── context/              # Compartilhamento de estado global
 ├── data/                 # Mock de dados (simulação)
-├── types/                # Tipos TypeScript e funções auxiliares
+├── hooks/                # Hooks customizados
+├── libs/                 # Bibliotecas utilitárias e funções auxiliares
+├── models/               # Modelos e interfaces de dados
+├── pages/api             # Rotas de API do Next.js
+├── services/             # Serviços para integração com APIs e lógica de negócio
+├── types/                # Tipagens compartilhadas
 ```
 
 ## 🧪 Como Executar Localmente
@@ -52,11 +58,12 @@ yarn
 yarn dev
 ```
 
-4. Acesse:
-http://localhost:3000
+4. Acesse: [http://localhost:3000](http://localhost:3000) para visualizar a pagina estática de apresentação
 
+5. Acesse: [http://localhost:3000/dashboard](http://localhost:3000/dashboard) para ser levado ao Dashboard, onde há um usuário de teste disponível.
 
 ## 🎥 Vídeo Demonstrativo
+
 O vídeo demonstrativo do fluxo completo da aplicação está disponível no link abaixo:
 
 🔗 Link para o vídeo

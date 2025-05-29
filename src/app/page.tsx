@@ -1,5 +1,3 @@
-"use client";
-
 import HeaderHome from "./components/HeaderHome";
 import { HomeGreetings } from "./components/HomeGreetings";
 import BenefitsSection from "./components/BenefitsSection";
