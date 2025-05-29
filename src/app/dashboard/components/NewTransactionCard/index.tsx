@@ -92,7 +92,7 @@ export const NewTransactionCard: React.FC = () => {
           />
           <InputValue changeValue={(value) => setValue("amount", value)} />
           <div className="flex flex-col text-sm text-green-dark w-fit gap-4 text-center md:text-left font-semibold">
-            <Button color="greenDark" type="submit">
+            <Button color="blueDark" type="submit">
               <span className="font-semibold">Concluir transação</span>
             </Button>
           </div>

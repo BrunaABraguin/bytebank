@@ -1,6 +1,6 @@
 import React from "react";
 
-type ButtonColor = "green" | "black" | "orange" | "greenDark";
+type ButtonColor = "green" | "black" | "orange" | "blueDark";
 type ButtonVariant = "primary" | "outline";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,7 +13,7 @@ const variantClasses: Record<ButtonVariant, Record<ButtonColor, string>> = {
   primary: {
     green:
       "bg-green text-white px-4 py-2 rounded-lg hover:bg-green-100 hover:text-green cursor-pointer",
-    greenDark:
+    blueDark:
       "bg-green-dark text-white px-4 py-2 rounded-lg hover:bg-blue-light hover:text-green-dark cursor-pointer",
     black:
       "bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 cursor-pointer",
@@ -23,7 +23,7 @@ const variantClasses: Record<ButtonVariant, Record<ButtonColor, string>> = {
   outline: {
     green:
       "border border-green text-green-500 px-4 py-2 rounded-lg hover:bg-green-100 cursor-pointer",
-    greenDark:
+    blueDark:
       "border border-green-dark text-green-dark px-4 py-2 rounded-lg hover:bg-green-100 cursor-pointer",
     black:
       "border border-black text-black px-4 py-2 rounded-lg hover:bg-gray-100 cursor-pointer",
