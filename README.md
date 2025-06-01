@@ -66,7 +66,7 @@ yarn dev
 
 O vídeo demonstrativo do fluxo completo da aplicação está disponível no link abaixo:
 
-🔗 Link para o vídeo
+🔗 [Link para o vídeo Fase 1](https://www.youtube.com/watch?v=z7MupcwsNzM)
 
 👩‍💻 Desenvolvido por
 
