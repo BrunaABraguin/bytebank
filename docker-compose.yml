@@ -1,0 +1,16 @@
+version: '3.9'
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  app-data:
+    driver: local
+services:
+  app:
+    image: brunaandradebraguin/bytebank:1.0
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
