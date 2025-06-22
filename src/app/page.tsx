@@ -1,7 +1,7 @@
-import HeaderHome from "./components/HeaderHome";
-import { HomeGreetings } from "./components/HomeGreetings";
-import BenefitsSection from "./components/BenefitsSection";
-import Footer from "./components/Footer";
+import BenefitsSection from "@ui/BenefitsSection";
+import Footer from "@ui/Footer";
+import HeaderHome from "@ui/HeaderHome";
+import { HomeGreetings } from "@ui/HomeGreetings";
 
 export default function Home() {
   return (

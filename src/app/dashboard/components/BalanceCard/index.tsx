@@ -1,6 +1,7 @@
 "use client";
-import { UserGreetings } from "@/app/components/UserGreetings";
-import Balance from "@/app/components/Balance";
+
+import Balance from "@ui/Balance";
+import { UserGreetings } from "@ui/UserGreetings";
 
 interface BalanceCardProps {
   userName: string;

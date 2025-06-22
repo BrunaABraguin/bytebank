@@ -1,10 +1,10 @@
 "use client";
-import { HamburgerMenu } from "@/app/components/HamburguerMenu";
 import { NAV_LINKS_DASHBOARD } from "@/constants";
 import { useAppContext } from "@/context/AppContext";
 import { useFetchAccount } from "@/hooks/useFetchAccount";
 import { useFetchTransactions } from "@/hooks/useFetchTransactions";
 import { User } from "@/types";
+import { HamburgerMenu } from "@ui/HamburguerMenu";
 import Image from "next/image";
 import React, { useEffect } from "react";
 

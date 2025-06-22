@@ -1,14 +1,14 @@
 "use client";
 import { Transaction } from "@/types";
 import React, { useEffect, useState } from "react";
-import { Modal } from "@/app/components/Modal";
 import { ButtonEdit } from "../Buttons/ButtonEdit";
 import ModalContent from "../ModalContent";
 import { handleTranslateType } from "@/constants";
-import { Toast } from "@/app/components/Toast";
 import { useAppContext } from "@/context/AppContext";
 import { useFetchTransactions } from "@/hooks/useFetchTransactions";
 import { useFetchAccount } from "@/hooks/useFetchAccount";
+import { Modal } from "@ui/Modal";
+import { Toast } from "@ui/Toast";
 
 interface StatementProps {
   initialTransactions: Transaction[] | null;

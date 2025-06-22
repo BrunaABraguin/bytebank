@@ -1,10 +1,10 @@
 "use client";
-import Button from "@/app/components/Button";
-import Select from "@/app/components/Select";
-import { Toast } from "@/app/components/Toast";
 import { handleTranslateType, transactionOptions } from "@/constants";
 import { useDeleteTransaction } from "@/hooks/useDeleteTransaction";
 import { useEditTransaction } from "@/hooks/useEditTransaction";
+import Button from "@ui/Button";
+import Select from "@ui/Select";
+import { Toast } from "@ui/Toast";
 import React, { useState } from "react";
 
 interface ModalContentProps {
@@ -44,7 +44,6 @@ const ModalContent: React.FC<ModalContentProps> = ({
       setEditValue("");
       closeModal();
     }
-    
   };
 
   const handleDelete = () => {
